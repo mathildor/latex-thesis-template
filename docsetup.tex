@@ -1,0 +1,151 @@
+\documentclass[10pt, b5paper, twoside]{book}
+\usepackage[inner=1.8cm, outer=2.5cm, bottom=3.0cm]{geometry} % Spacing on each page - since two page style there are more space on outer border than inner boarder
+
+\usepackage[parfill]{parskip}  % To begin paragraphs with an empty line rather than an indent
+\usepackage{float}%To allow [H] after figures/tables ++ to force placement
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc} %Allow norwegian letters
+\usepackage[T1]{fontenc} % norsk tegnsett (æøå)
+\usepackage[english]{babel}
+
+%\usepackage{hyperref}
+\usepackage[pdftex]{hyperref}
+
+\usepackage{amsmath} %Math
+\usepackage{amsthm} %Math?
+\usepackage{textcomp}%Get math symbols like circled R
+
+\usepackage{emptypage} %Removes pagenumber on empty pages 
+\usepackage{setspace} %To use doublespacing / singlespacing ++
+
+\usepackage[nonumberlist,toc]{glossaries}%Adding glossary, and adding it to contents. "nonumberlist" removes page reference in glossary
+\usepackage[toc, page]{appendix} %Adding appendix
+
+%Bibliography definitons
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{url} %Get url in referencelist
+
+
+\usepackage[table,xcdraw]{xcolor} %Adding color to tabels
+
+%AA------------------------------- Figure layout --------------------------------
+\usepackage{graphicx} % To include images
+\graphicspath{ {figures/} } %To add list of figures
+\usepackage[font=footnotesize, labelfont=bf]{caption} %Setting size of figure text, and making figure numbering bold
+\captionsetup{width=0.9\linewidth} %Setting global width of figure text (can also be set specifically for one figure)
+\usepackage{caption}
+\usepackage{subcaption} %To add caption for each independend side-by-side figure
+
+%AA ---------------------------- CODE LAYOUT ------------------------------
+% Inserting code and making it look readable (adding numbering, colours and formatting)
+\usepackage{listings} %insert code style
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{pythonstyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,   %Makes underscore look correct             
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+%creating new language with everything defined in python, but adding more keywords
+\lstdefinelanguage{Python-tf}{
+	language = {Python},
+	morekeywords = {with, as},
+}
+
+%Making space between background box and content
+\usepackage{fancyvrb}
+\usepackage{framed}
+\lstset{
+	style=pythonstyle,
+	framexleftmargin=1pt,
+	framextopmargin=8pt,
+	framexbottommargin=6pt, 
+	frame=tb, framerule=0pt,
+	%Setting arrow after forced line break in code
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+
+%Get backround color on inline listing (code)
+\usepackage{xpatch}
+\usepackage{realboxes}
+\makeatletter
+\xpretocmd\lstinline{\Colorbox{backcolour}\bgroup\appto\lst@DeInit{\egroup}}{}{}
+\makeatother
+
+
+%AA-----------------------------  Header and footer layout--------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+
+%L = left, R = right, C=center, O = odd page, E = even page
+\fancyhead[LE]{\leftmark} %\leftmark sets number and name of chapter
+\fancyfoot[LE,RO]{\thepage} %\thepage gives page number
+
+% redefinition of the plain style: Otherwise first page of new chapter gets original plain style
+\fancypagestyle{plain}{%
+	\fancyhf{} % clear all header and footer fields
+	\renewcommand{\headrulewidth}{0pt} %Remove header line on new 
+	\fancyfoot[LE,RO]{\thepage} %\ "thepage" gives page number
+}
+
+%AA-------------------- TOC layout ----------------------------------------------------
+\usepackage{titletoc}
+
+\titlecontents{chapter}[1.5pc]
+{\filright}
+{\contentslabel{1.5pc}}{\hspace*{-1.5pc}}
+{\titlerule*[0.7pc]{.}\contentspage}
+
+\titlecontents{section}[3.5pc]
+{\addvspace{-0.4pc}\filright\footnotesize} %space between lines
+{\contentslabel{2pc}}{\hspace*{-2pc}}
+{\titlerule*[0.7pc]{.}\contentspage} %space between dots
+
+\titlecontents{subsection}[4.5pc]
+{\addvspace{-0.4pc}\filright\footnotesize} %space between lines
+{\contentslabel{2pc}}{\hspace*{-2pc}}
+{\titlerule*[0.7pc]{.}\contentspage} %space between dots
+
+%Set levels in contents:
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{2}
+
+
+
+%AA-------------------- Chapter header layout ------------------------------------
+\usepackage{titlesec}
+%\titleformat{\chapter}[hang] 
+
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+
+%Setting layot to line between number and name, setting the color to gray and adding space
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+%{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter. }{0.7em}{}%[{\titlerule[0.2pt]}] %underline
+
+\makeatletter %Decide layout for chapter header
+\renewcommand{\@chapapp}{}% Remove "Chapter" before chap number
+\newenvironment{chapquote}[2][2em]
+%------------------------------------------------------------------
+
+

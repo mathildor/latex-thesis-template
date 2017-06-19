@@ -1,0 +1,48 @@
+
+\input{docsetup.tex}
+\input{glossary.tex}
+
+\begin{document}
+\renewcommand{\lstlistingname}{Code} %change name for all lstings to code
+\renewcommand{\lstlistlistingname}{List of Code} %change name for lstings for contents and list header
+
+
+\input{spacingSetup.tex}	
+
+\frontmatter
+\input{frontpage.tex}
+\input{abstract.tex}
+\input{sammendrag.tex}
+\input{preface.tex}
+
+\doublespacing
+\tableofcontents
+\singlespacing
+
+\label{glossary}
+\printglossary
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+
+\mainmatter
+
+%Add all files containing content of paper
+\input{Introduction.tex}
+\input{Software-recommendations.tex}
+
+\medskip
+\addcontentsline{toc}{chapter}{References}
+
+%Set bib file, produced by mendeley
+\bibliography{bibtex/library.bib}
+%Define style for bibliography
+\bibliographystyle{apalike} 
+
+\input{appendix.tex}
+\glsaddall %Adding all glossary entries
+
+\end{document}
